@@ -92,13 +92,12 @@ if __name__ == "__main__":
     p1.start()
     p.join()
     p1.join()
-    print(num.value)
     # print(list(num_arr))
     with JobManger() as jobManger:
         jobclass = jobManger.jobclass()
-        print(jobclass.add(4, 3))         # prints 7
+        print(jobclass.add(4, 6))         #10
 
-    w = Worker(Queue())   #只能使用进程的Queue
+    w = Worker(Queue())   #进程只能使用进程的Queue
     w.start()
         
     QManger.register('task_queue', callable=return_task_queue)
