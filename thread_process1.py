@@ -77,7 +77,6 @@ if __name__ == "__main__":
     p.start()
     print(parent_conn.recv())
     p.join()
-    print(9999)
     t1 = Thread(target=job4, args=("234234", ), name="t1")
     t2 = Thread(target=job4, args=("99999", ), name="t2")
     t1.start()
