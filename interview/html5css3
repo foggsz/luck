@@ -1,0 +1,37 @@
+html5:
+    1. 拖拽释放(Drag and drop) API
+    2、语义化标签 header,nav,footer,section,article
+    3、音频、视频audio、video API
+    4、canvas 画布API
+    5、地理位置API
+    6、localstorage，本地长期存储
+    7、新的表单控件dat、email、calendar
+    
+css3:
+    1、圆角（border-radius)，阴影（box-shadow)
+    2、text-shadow, 线性渐变（gradient), 旋转transform
+    3. animation属性
+    4、媒体查询，多栏布局
+    5、rgba背景
+
+渐进增强 progressive enhancement：针对低版本浏览器进行构建页面，保证最基本的功能，然后再针对高级浏览器进行效果、
+交互等改进和追加功能达到更好的用户体验。
+优雅降级 graceful degradation：一开始就构建完整的功能，然后再针对低版本浏览器进行兼容。
+
+ajax请求
+    原理： 利用XmlHttpRequest对象，在ie可以使用activeOBject()。
+        有两个重要方法open和send
+        open(url, method, async)
+        send(string) //仅在post方式可以发送
+        setRequestHeader(),设置一些头信息
+        onreadystatechange——每次状态改变所触发事件的事件处理程序。
+        responseText——从服务器进程返回数据的字符串形式。
+        responseXML——从服务器进程返回的DOM兼容的文档数据对象。
+        status——从服务器返回的数字代码，如404（未找到）和200（已就绪）。
+        status Text——伴随状态码的字符串信息。
+        readyState——对象状态值。对象状态值有以下几个：
+        0 - (未初始化)还没有调用send()方法
+        1 - (载入)已调用send()方法，正在发送请求
+        2 - (载入完成)send()方法执行完成
+        3 - (交互)正在解析响应内容
+        4 - (完成)响应内容解析完成，可以在客户端调用了

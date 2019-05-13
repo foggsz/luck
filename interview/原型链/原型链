@@ -1,0 +1,27 @@
+创建对象的几种方式 原型、构造函数、实例、原型链
+    1、 var  o1 = {name:1}   #字面量独享
+        var  o2 = new Object({name:1})    
+
+    2、 构造函数
+        function Obj(){ this.name=2;} 
+        var o3 = new Obj()
+
+    3、 Object.create
+        var p = {name:3}
+        var o4 = Object.create(p)
+
+    构造函数是可以使用new运算符，生成实例函数，
+        构造函数 prototype属性=>指向原型对象
+        原型对象 constructor =>函数
+        两者 相互绑定
+        new 构造函数 __proto__ => prototype对象， 原型对象也有__proto__，同样指向prototype对象
+        new 继承构造函数原型对象， this绑定上下文新对象
+        如果返回一个对象，指向返回新对象
+
+
+类与实例
+    类的声明
+    生成实例
+    
+    
+

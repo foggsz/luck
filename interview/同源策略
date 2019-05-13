@@ -1,0 +1,28 @@
+源  协议、地址、端口
+    Cookie、localStorage、indexDb 无法读取
+    DOM 无法获得
+    AJAX 请求不能发送
+
+前后端如何通信
+    AJAX（同源）
+    WebSocket (同源、非同源)
+    CORS（同源、非同源）
+
+
+如何创建AJAX
+跨域通信的几种方式
+    JSONP
+    HASH  ?后，页面会刷新  #后，页面不会刷新
+    POstMessage
+    WebSocket
+    CORS
+    
+
+CSRF
+    基本概念和缩写
+        跨站请求伪造
+    攻击原理
+
+    
+XSS
+    跨域脚本攻击

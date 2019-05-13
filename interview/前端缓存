@@ -1,0 +1,15 @@
+应用程序缓存
+    Html5新特性
+    在html标签指定mainfest属性，该属性指向一个缓存文件,用户访问该网页时，将会被缓存下来
+    manifest 文件的建议的文件扩展名是：".appcache"
+    manifest 文件需要配置正确的 MIME-type，即 "text/cache-manifest"。必须在 web 服务器上进行配置
+    缓存文件有三个部分
+        CACHE MANIFEST - 在此标题下列出的文件将在首次下载后进行缓存
+        NETWORK - 在此标题下列出的文件需要与服务器的连接，且不会被缓存
+        FALLBACK - 在此标题下列出的文件规定当页面无法访问时的回退页面（比如 404 页面）
+
+
+浏览器缓存
+    服务器响应头指定 Cache-control 属性
+
+
