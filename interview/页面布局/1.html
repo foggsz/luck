@@ -1,0 +1,279 @@
+<html>
+    <head>
+        <style>
+            html *{
+                margin:0px;
+                padding: 0px;
+            }
+            #float div {
+                height: 100px;
+            }
+            #float .left{
+                float: left;
+                width: 300px;
+                background: red;
+            }
+            #float .middle{
+                background: yellow;
+            }
+            #float .right{
+                float: right;
+                background: blue;
+                width: 300px;
+            }
+            #absolute{
+                margin-top:20px;
+                display: none;
+            }
+            #absolute div{
+                position: absolute;
+                min-height: 100px;
+            }
+            #absolute .left,  #absolute .right {
+                width: 300px;
+            }
+            #absolute .left{
+                left: 0;
+                background: red;
+            }
+            #absolute .middle{
+                left:300px;
+                right: 300px;
+                background: yellow;
+            }
+            #absolute .right{
+                right:0;
+                background: blue;
+                
+            }
+        
+        #flex{
+            display: flex;
+            flex-direction: row;
+        }
+        #flex div{
+            min-height: 100px;
+        }
+        #flex .left{
+            width:300px;
+            background:red;
+        }
+        #flex .right{
+            width: 300px;
+            background: blue;  
+        }
+        #flex .middle{
+            flex:1;
+            background: yellow;
+        }
+        #grid{
+            display: grid;
+            grid-template-columns: 300px auto 300px;
+            grid-template-rows: repeat(1, 100px)
+        }
+        #grid .left{
+            background:red;
+        }
+        #grid .right{
+            background: blue;  
+        }
+        #grid .middle{
+            background: yellow;
+        }
+        </style>
+    </head>
+    <body>
+        <section id="float">
+            <div class="left">
+            </div>
+            <div class="right">
+            </div>
+            <div class="middle">
+                浮动解决方案
+            </div>
+        </section>
+        <section id="absolute">
+            <div class="left"></div>
+            <div class="middle">绝对定位解决方案</div>
+            <div class="right"></div>
+        </section>
+
+        <section id="flex">
+            <div class="left"></div>
+            <div class="middle">flex布局</div>
+            <div class="right"></div>
+        </section>
+        <section id="grid">
+            <div class="left"></div>
+            <div class="middle">网格布局</div>
+            <div class="right"></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </section>
+        <script>
+            o1 = {name:1}
+            o2 = new Object({name:2})
+            function ob(){ this.name=3}
+            o3 = new ob()
+
+            function Animal(num){
+                this.name = 'animal'
+                this.num = num
+            }
+            Animal.prototype.age = 100
+            /*es6声明*/
+            class Animal1 {
+                constructor() {
+                    this.name = 'animal'
+                }
+            }
+            /*继承方式，构造函数*/
+            function Child(){
+                Animal.call(this, 10)
+                this.type = 'aaa'
+            }
+            function Z(){
+
+            }
+            Z.prototype.y = 10;
+
+            function P(){
+                this.name = 10;
+                this.x = [];
+            }
+
+            P.prototype = Z.prototype
+            P.prototype.num = [1,2,3]
+            P.prototype.name = 1000
+            function C(){
+                P.call(this)
+            }
+            function D(){
+                this.h =1000;
+            }
+
+            C.prototype = P.prototype;
+            C.prototype.constructor = C; 
+
+            function C1(){P.call(this)}
+            C1.prototype = Object.create(P.prototype, { 'name': {'value':100} })
+            C1.prototype.constructor = C1;  
+
+            //冒泡排序
+
+            function mp(nums){
+                for (var i= 0; i<nums.length; i++) {
+                    for(var j=0; j<nums.length-1;j++){
+                        if (nums[j]>nums[j+1]) {
+                            max = nums[j]
+                            nums[j] = nums[j+1]
+                            nums[j+1] = max                         
+                        }
+                    }
+                }  
+                return nums;             
+            }
+
+            //快速排序
+            function ks(nums){
+                var left = []
+                var right = []
+                var middle = Math.floor(nums.length/2)
+                var middle_val = nums.splice(middle, 1)
+                for(var i=0; i<nums.length; i++){
+                    if(nums[i]< middle_val){
+                        left.push(nums[i])
+                    }else{
+                        right.push(nums[i])
+                    }
+                }
+    
+                return ks(left).concat([middle_val],ks(right))
+            }
+            
+            function quickSort(arr){
+        if(arr.length<=1){
+            return arr  // 如果数组长度小于或等于1，则直接返回数组
+        }
+        var num = Math.floor(arr.length/2);  // 找到数组中间的索引，如果是浮点数，则向下取整
+        var centerVal = arr.splice(num,1)[0];  // 找到数组中间索引的值
+        var left = [];
+        var right = [];
+        for(var i=0;i<arr.length;i++){
+            if(arr[i]<centerVal){
+                left.push(arr[i])  // 基准点左边的数放到左边数组
+            }else{
+                right.push(arr[i]) // 基准点右边的数放到右边数组
+            }
+        }
+        // 利用concat拼接数组，并调用quickSort方法
+        return quickSort(left).concat([centerVal],quickSort(right)) 
+    }
+    function setX(){
+        this.b  = 10
+    }
+        o = new WeakMap()
+        o1 = new WeakMap()
+        class A {
+            static x =10
+            k =88
+            constructor(){
+                this.name =10
+                o.set(this, 66)
+                o1.set(this, 99)
+            }
+            say(){
+                setX.call(this)
+                console.log(o.get(this))
+                console.log(o1.get(this))
+            }
+        
+        }
+
+        function hw(str){
+            length = str.length
+            while(length>0){
+                if (str[0]!=str[length-1]){
+                    length =0;
+                    return false;
+                }else{
+                    return hw(str.slice(1,length-1))
+                }
+            }
+        }
+
+        function Parent(){
+            this.name = 10
+        }
+        Parent.prototype.age =10;
+        function Child(){
+            this.c = 66
+        }
+        Child.prototype =  Parent.prototype //Object.create(Parent.prototype)
+        Child.prototype.constructor = Child
+
+        var k = 100
+        var y = 99
+        function say(){
+            console.log(k)
+            k =1000;
+            console.log(k)
+        }
+        function deepCopy(obj){
+                var  deepobj = {}
+                for(var key in obj){
+                    deepobj[key] = obj[key]
+                    if(typeof obj[key] == 'object') {
+                        deepobj[key] = deepCopy(obj[key])
+                    }else{
+                        deepobj[key] = obj[key]
+                    }
+                }
+                return deepobj
+        }
+        
+        </script>       
+    </body>
+</html>

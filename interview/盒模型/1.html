@@ -1,0 +1,63 @@
+<html>
+    <head>
+        <style>
+            html *{
+                padding: 0;
+                margin: 0;
+            }
+            #bfc {
+                background: yellow;
+                overflow: hidden;
+            }
+            #bfc p{
+                background: red;
+                margin:20px auto 30px;
+            }
+        </style>
+    </head>
+    <body>
+        <section id="bfc">
+            <p>1</p>
+            <p>2</p>
+            <div style="overflow: hidden;">
+                <p>2.5</p>
+            </div>
+            <p>3</p>
+            <p>4</p>
+        </section>
+        <div class="parent">
+            <li class="a"> a</li>
+            <li class="b"> b</li>
+        </div>
+        <script>
+            var p = document.getElementsByClassName('parent')[0];
+            var eve = new  CustomEvent('custom', {'detail': 1})
+            p.addEventListener('custom', function(e){
+                console.log(e.detail)
+                alert("custom event1")
+            })
+            
+            p.addEventListener('click', function(e){
+                console.log(1);
+                p.dispatchEvent(eve)
+                // e.stopImmediatePropagation()
+            },false)
+            p.addEventListener('click', function(e){
+                console.log(2)
+            },false)
+            //
+            class AA{
+                constructor(){
+                    this.a =10
+                }
+                bb(){
+                    console.log(1111)
+                }
+                static  say(){
+                    console.log("say")
+                    console.log(this.a)
+                }
+            }
+        </script>
+    </body>
+</html>

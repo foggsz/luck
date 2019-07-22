@@ -1,0 +1,14 @@
+bfc
+    块级格式化上下文
+    bfc 渲染规则：
+        垂直方向边距会发生重叠
+        bfc区域不会与浮动元素区域重叠
+        bfc和外面元素都是独立的
+        bfc高度会将浮动元素高度计算
+
+    bfc创建规则：
+        设置float
+        位置设置为fixed,absolute
+        dispaly:table-cell table-caption inline-block 任意一个
+        overflow:不为visiable
+    

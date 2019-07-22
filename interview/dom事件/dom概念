@@ -1,0 +1,37 @@
+Dom事件的级别（Dom标准)
+    Dom0:  ele.onclick = function() {}
+    Dom2:  ele.addEventListener('click', function(){}, false )
+    Dom3:  ele.ddEvengtListener('keyup', function(){}, false)
+   
+Dom事件模型
+    捕获：从上到下
+    冒泡：从下到上
+
+Dom事件流
+    第一阶段， 捕获
+    第二阶段， 捕获到目标阶段
+    第三阶段， 目标阶段上升到window
+
+捕获Dom事件捕获的具体流程
+    window->document->html->body->依次到具体对象
+    具体对象反之
+
+Event事件
+    event.preventDefault()   阻止原生事件
+    event.stopPropagation()  阻止冒泡
+    event.stopImmediatePropagation() 阻止绑定的多个同名事件
+    event.currentTarget   绑定点击事件的对象
+    evenrt.target         当前点击的元素
+
+自定义事件
+    new Eevnt(事件名)
+    元素注册同Dom2
+    主动触发   元素.disptach(事件对象)
+    
+    CustomEevnt(事件名， 事件初始化参数) bubbles:是否可以冒泡，cancelable:是否可以取消，detail:自定义数据。
+    用法同上，自定义数据从detail属性取出
+
+
+Event对象的常见应用
+
+自定义事件
