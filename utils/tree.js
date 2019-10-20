@@ -12,8 +12,8 @@ function tree(arr){
         let item = arr[i]
         hashMap[item.id] = item
     }
-    for(let i  in arr ){
-        let item  = arr[i]
+    for(let i  in  hashMap){
+        let item  = hashMap[i]
         if(item.pid){
             hashMap[item.pid].child  = hashMap[item.pid].child || []
             hashMap[item.pid].child.push(item)
@@ -21,8 +21,6 @@ function tree(arr){
             res.push(item)
         }
     }
-    console.log(hashMap)
-    console.log(res)
     return res
 }
 console.dir(tree(arr))
