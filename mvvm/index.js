@@ -84,7 +84,6 @@ CompileUtil.getTextVal = function(vm, exp){
 CompileUtil.setVal = function(vm, exp, newVal){
         exp = exp.split('.')
         return exp.reduce( (prev, next, index)=>{
-            console.log(prev,next, prev[next])
             if(index === exp.length-1){
                 // console.log(prev, newVal)
                 return prev[next] = newVal

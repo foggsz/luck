@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id='app'>
+        {{message}}
+        <compoent-a >
+            <template v-slot:header>
+            </template>
+            <template v-slot:user="userprop">
+                {{userprop.user.firstname}}
+            </template>
+            <template v-slot:bottom="slotBottomProps">
+                {{slotBottomProps.zz}}
+            </template>
+        </compoent-a>
+        _____________
+        <template>
+                <smart-list :items="[1,2,3]" class="abc">
+                        <li v-for="(item, val) in [1,2,3]">{{val}}</li>
+                </smart-list>
+        </template>
+        <anchored-heading :level="1">
+            <li>sss</li>
+        </anchored-heading>
+    </div>
+    <script>
+    var getChildrenTextContent = function (children) {
+                return children.map(function (node) {
+                    return node.children
+                    ? getChildrenTextContent(node.children)
+                    : node.text
+                }).join('')
+        }
+
+        Vue.component('anchored-heading', {
+        render: function (createElement) {
+            // 创建 kebab-case 风格的 ID
+            console.log(this.$slots.default)
+            var headingId = getChildrenTextContent(this.$slots.default)
+            .toLowerCase()
+            .replace(/\W+/g, '-')
+            .replace(/(^-|-$)/g, '')
+
+            return createElement(
+            'h' + this.level,
+            [
+                createElement('a', {
+                attrs: {
+                    name: headingId,
+                    href: '#' + headingId
+                }
+                }, this.$slots.default)
+            ]
+            )
+        },
+        props: {
+            level: {
+            type: Number,
+            required: true
+            }
+        }
+        })
+
+        var EmptyList = { 
+        template:`<div></div>
+            `
+    }
+    var TableList = {   template:`<div>111</div>
+            ` }
+    var OrderedList = { /* ... */ }
+    var UnorderedList = { /* ... */ }
+        Vue.component('smart-list', {
+        functional: true,
+        props: {
+            items: {
+            type: Array,
+            required: true
+            },
+            isOrdered: Boolean
+        },
+        render: function (createElement, context) {
+            function appropriateListComponent () {
+                var items = context.props.items
+                return TableList
+                if (items.length === 0)           return EmptyList
+                if (typeof items[0] === 'object') return TableList
+                if (context.props.isOrdered)      return OrderedList
+
+                return UnorderedList
+            }
+            console.log(context.data)
+            return createElement(
+                appropriateListComponent(),
+                context.data,
+                context.children
+            )
+        }
+    })
+       var vue = new Vue({
+            el: '#app',
+            data:{
+                message:"nihao",
+                header:"ghggggg",
+                user:{
+                    firstname:"1",
+                    lastname:"2"
+                }
+            },
+            provide:function(){
+                return {
+                    message: this.message
+                }
+            },
+            components:{
+                "compoent-a": Vue.component('compoent-a', {
+                template:`
+                    <div>
+                    <slot name="header"></slot>
+                    <slot name="user" v-bind:user="user">{{user.lastname}}</slot>
+                    <slot name="bottom" v-bind:zz="hh">}</slot>
+                    <compoent-b></compoent-b>
+                    </div>
+                `,
+                data(){
+                        return {
+                            user:{
+                                firstname:"fog",
+                                lastname:"gy"
+                            },
+                            hh:"sss"
+                        } 
+                    }
+                }),
+                components:{
+                "compoent-b": Vue.component('compoent-b', {
+                template:`
+                    <div>
+                    <slot name="header"></slot>
+                    <slot name="user" v-bind:user="user">{{user.lastname}}</slot>
+                    <slot name="bottom" v-bind:zz="hh"></slot>
+                    </div>
+                `,
+                inject:['message'],
+                data(){
+                        return {
+                            user:{
+                                firstname:"fog22",
+                                lastname:"gy22"
+                            },
+                            hh:"sss"
+                        } 
+                    }
+                })
+                
+            }
+                
+            }
+        })
+        
+    </script>
+</body>
+</html>
