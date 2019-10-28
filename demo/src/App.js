@@ -155,4 +155,7 @@ function calculateWinner(squares) {
   return null;
 }
 
+export var x = { name:10}
 export default Game;
+x.name = 10000
+setTimeout(()=>console.log(x.name), 500)

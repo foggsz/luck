@@ -1,31 +1,39 @@
 import React, {useEffect, useState, Suspense} from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+// import {x} from './App';
+// console.log(x)
 
+import App, {x} from './App'
+import * as serviceWorker from './serviceWorker';
+x.name = 999
+setTimeout(()=>{ console.log(x.name); x.name=900;  }, 200)
 function Form() {
     // 1. Use the name state variable
     const [name, setName] = useState('Mary');
   
     // 2. Use an effect for persisting the form
-    // useEffect(function persistForm() {
-    //   localStorage.setItem('formData', name);
-    // });
-  
     // 3. Use the surname state variable
     const [surname, setSurname] = useState('Poppins');
-  
+    
+    
     // 4. Use an effect for updating the title
+    
+    useEffect(function persistForm() {
+        console.log('name11111', name)
+        // localStorage.setItem('name', name)
+      });
     useEffect(function updateTitle() {
-        console.log(surname)
-      document.title = name + ' ' + surname;
+      console.log('update title')
+       document.title = name + ' ' + surname;
     })
+
     return (
         <div>
           <Suspense fallback={<div>Loading...</div>}>
             <section>
-                <div>sss</div>
+                <div onClick={()=>{ return setName('haha')} }>name: {name}</div>
+                <div onClick={()=>{ return setSurname('heihei')} }>surname: {surname}</div>
             </section>
           </Suspense>
         </div>
