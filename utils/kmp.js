@@ -19,24 +19,19 @@ function kmp(str, query_str){
 
 
 function getNext(query_str){
-    let next = [], i=0, len = query_str.length;
+    let next = [-1], i=1, len = query_str.length;
     let prefix = '', suffix = '';
     while(i<len){
-        if(i>=2){
-           prefix = query_str.slice(0, i)
-           suffix = query_str.slice(1,i+1) 
-           next[i] =  prefix == suffix ? prefix.length:0 
-        } else{
-            next[i]  = 0
-        }
+        prefix = query_str.slice(0, i)
+        suffix = query_str.slice(1,i+1) 
+        next[i] =  prefix == suffix ? prefix.length:0 
         i++
 
     }
-    next.unshift(-1)
-    next.pop()
     return next
 }
 
 let  str = 'abababcassssss'
-let  query_str = 'bababca'
+let  query_str = 's'
 let res = kmp(str, query_str)
+console.log(res)
