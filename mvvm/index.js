@@ -168,6 +168,7 @@ class Watcher{
         Dep.target = null
         return value
     }
+
     update(){
         let newVal = CompileUtil.getVal(this.vm, this.exp)
         let oldVal = this.value
@@ -216,6 +217,7 @@ class Observer{
 
     }
 }
+
 class MVVM {
     constructor(options){
         this.$el = options.el
@@ -225,7 +227,6 @@ class MVVM {
             new Observer(this.$data)
             this.proxyData(this.$data)
             new Compile(this.$el, this)
-            
         }
     }
 

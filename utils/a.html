@@ -1,0 +1,41 @@
+<html>
+
+<body>
+    <button id='bt'>点我</button>
+    <script>
+        function debounce(func, delay) {
+            let t = null
+            return function () {
+                clearTimeout(t)
+                setTimeout(() => {
+                    func.apply(this, arguments)
+                },delay)
+            }
+        }
+
+
+        function jy(func, delay, ...rest) {
+            var can = true
+            return function (a,b) {
+                if (can) {
+                    setTimeout( ()=> {
+                        func.apply(this, arguments)
+                        can = true
+                    },delay)
+                }
+                can = false
+            }
+        }
+
+        function say(...rest) {
+            console.log(rest)
+        }
+
+
+
+        let bt = document.getElementById('bt')
+        bt.onclick =   debounce(say, 4000)
+    </script>
+</body>
+
+</html>
