@@ -7,7 +7,7 @@
             let t = null
             return function () {
                 clearTimeout(t)
-                setTimeout(() => {
+                t = setTimeout(() => {
                     func.apply(this, arguments)
                 },delay)
             }
@@ -34,7 +34,7 @@
 
 
         let bt = document.getElementById('bt')
-        bt.onclick =   debounce(say, 4000)
+        bt.onclick =   debounce(say, 1000)
     </script>
 </body>
 

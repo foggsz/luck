@@ -21,4 +21,3 @@ function abc(){
 var c = {}
 
 let x = Function.prototype.apply
-console.dir(x.toString())

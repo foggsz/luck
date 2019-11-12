@@ -1,10 +1,15 @@
 function deepCopy(obj){
-    if(!(typeof obj == 'object' || typeof obj == 'Array')){
+    if(!(typeof obj == 'object')){
         return obj
     }
-    let newObj = {}
+
+    if(Object.prototype.toString.call(obj) == "[object RegExp]"){
+        return new RegExp(obj)
+
+    }
+    let newObj =  Array.isArray(obj)?[]:{ }
     for(let key in obj){
-        newObj[key] = obj[key]
+        newObj[key] = deepCopy(obj[key])
     }
     return newObj
 }
@@ -83,13 +88,15 @@ let origin = {
         male:{
             j:{
                 j:1
-            }
+            },
+            c:[222]
         }
-    }
+    },
+    a: new RegExp('ssss')
 }
 let newObj = {}
 
 let newObj_two = {}
 
-newObj = sd_deepCopy(origin)
+newObj = deepCopy(origin)
 console.log(newObj)

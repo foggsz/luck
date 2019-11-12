@@ -1,10 +1,11 @@
 function debounce(func, delay){
-    let t = null
+    var t = null
     return  function(){
         clearTimeout(t)
-        setTimeout(() => {
+        t = setTimeout(() => {
+            console.log(11111)
             func.apply(this, arguments)
-        })
+        }, 3000)
     }
 }
 
