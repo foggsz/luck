@@ -1,0 +1,138 @@
+{% extends "index/base.html" %}
+{% block title %}首页{% endblock %}
+{% block head %}
+{{ super() }}
+<style type="text/css">
+    .important {
+        color: #336699;
+    }
+</style>
+{% endblock %}
+{% block content %}
+<div class="container">
+    <form class='ins_form'>
+        <div class="card flex-row pt-2 pb-2 mt-5">
+            <div class="card-body" style="flex:3;">
+                {% if tag == "video" %}
+                <h4 class="card-title">Instagram视频</h4>
+                <div class="input-group pl-0  mt-4 ">
+                    <input type="text" class="form-control rounded-0" placeholder="输入Instagram单个视频网址" name="url" style="height: auto;">
+                    <div class="input-group-append">
+                        <input type="submit" class="btn btn-danger rounded-0 btn-lg submitInput" style="background-color:#e55c53;font-size:1.0rem;"
+                            value="提交">
+                    </div>
+                </div>
+                <div style="display: none" class="video-my">
+                    <video
+                        id="my-player"
+                        class="video-js"
+                        controls
+                      >
+                    </video>
+                    <div>
+                        <h5 class="text-danger font-weight-bold pt-3 pb-2 loadVideo">下载</h5>
+                        <p style="font-size:14px;">点击“下载”按钮即可下载视频<br>或者视频上点击鼠标右键选择菜单中“视频另存为”也可以下载保存视频</p>
+                    </div>
+                </div>
+                {% elif tag == "img" %}
+                <h4 class="card-title">Instagram图片下载</h4>
+                <div class="input-group pl-0  mt-4 ">
+                    <input type="text" class="form-control rounded-0" placeholder="输入Instagram单张图片网址" name="url" style="height: auto;">
+                    <div class="input-group-append">
+                        <input type="submit" class="btn btn-danger rounded-0 btn-lg submitInput" style="background-color:#e55c53;font-size:1.0rem;"
+                            value="提交">
+                    </div>
+                </div>
+                <div style="display: none">
+                    <img download="logo.png" src="" alt="" class="Img col-md-8 pl-0 pt-3">
+                    <div>
+                        <h5 class="text-danger font-weight-bold pt-3 pb-2 loadImg">下载</h5>
+                        <p style="font-size:14px;">点击“下载”按钮即可下载保存图片<br>或者图片上点击鼠标右键选择菜单中“图片另存为”也可以下载保存图片</p>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+            <div style="flex:2;">
+            </div>
+    </form>
+</div>
+<script type=text/javascript> $(function() { 
+    $('.submitInput').bind('click', function(e) { 
+        e.preventDefault(); 
+        var  _this=$(e.currentTarget) 
+        var formData=_this.parents("form.ins_form").serializeJSON() 
+        formData["url"]="https://www.instagram.com/p/BsFi-WLHIyD/?utm_source=ig_web_button_share_sheet"
+        swal.showLoading()
+        let tag = "{{ tag }}"; 
+        var ajaxObj = {
+            url: $SCRIPT_ROOT,
+            type: "POST",
+            contentType: 'application/json',
+            data:  JSON.stringify(formData),
+            xhrFields:{
+                responseType: "blob"
+            },
+            success: function(data, textStatus, response) {
+                let { video_url } = data || {};
+                if ( video_url ) {
+                    $(".video-my").css("display", "block");
+                    let { video_url } = data ; 
+                    let options = {};
+                    var player = videojs('my-player', options, function onPlayerReady() {
+                        this.src({
+                            type: "video/mp4",
+                            src: video_url
+                        })
+                    });
+                } else {
+                    var blob = new Blob([data], {type : 'image/jpg'});
+                    var reader = new FileReader()
+                    reader.onloadend = function() {
+                        let url = reader.result
+                        $(".Img").attr("src", url)
+                        $(".Img").parent("div").css("display", "block")
+                        let filename = response.getResponseHeader("filename")
+                        $(".Img").attr("filename", filename)
+                        
+                    }
+                    reader.readAsDataURL(data);
+                }
+            },
+            fail: function(reason) {
+                swal.close()
+            },
+            complete: function(){
+                swal.close()
+            }
+        };
+        if (tag == "video") {
+            delete ajaxObj["xhrFields"] ;
+        }
+        return $.ajax(ajaxObj)
+      });
+      $(".loadVideo").click(function(e){
+        let video_scr= $(".my_video").attr("src")
+        var link =  document.createElement('a')
+        link.download = $(".my_video").attr("filename")
+        link.href = video_scr;
+        document.body.appendChild(link)
+        link.click();
+        setTimeout(() => {
+            document.body.removeChild(link) 
+        }, 200);
+      })
+
+      $(".loadImg").click(function(e){
+        let img_scr= $(".Img").attr("src")
+        var link =  document.createElement('a')
+        link.download = $(".Img").attr("filename")
+        link.href = img_scr;
+        document.body.appendChild(link)
+        link.click();
+        setTimeout(() => {
+            document.body.removeChild(link) 
+        }, 200);
+      })
+    });
+</script>
+{% endblock %}
